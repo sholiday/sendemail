@@ -16,6 +16,7 @@ COPY . ./
 
 # Build the binary.
 # -mod=readonly ensures immutable go.mod and go.sum in container builds.
+WORKDIR /app/cmd
 RUN CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o server
 
 # Use the official Alpine image for a lean production container.
@@ -25,10 +26,9 @@ FROM alpine:3
 RUN apk add --no-cache ca-certificates
 
 # Copy the binary to the production image from the builder stage.
-COPY --from=builder /app/server /server
+COPY --from=builder /app/cmd/server /server
 COPY ./templates /templates
-
-RUN ls /
+ENV GIN_MODE=release
 
 # Run the web service on container startup.
 EXPOSE 8081

@@ -27,7 +27,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to parse config file: %s", err)
 	}
-	fmt.Printf("%+v\n", config)
 
 	s := sendemail.New(config)
 
