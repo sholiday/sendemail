@@ -1,0 +1,14 @@
+[server]
+host="localhost"
+port=8081
+title="Send Email"
+dryrun=false
+
+[sender]
+  [sender.example]
+  fromDomain="example.com"
+  host="smtp.emailserver.com"
+  port=587
+  username="example@example.com"
+  password="hunter2"
+  bcc = ["sendemail@example.com"]
